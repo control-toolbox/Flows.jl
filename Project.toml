@@ -1,0 +1,8 @@
+name = "Flows"
+uuid = "5fb78580-10a0-4606-82bc-07a60f425ab3"
+authors = ["Olivier Cots <olivier.cots@enseeiht.fr>"]
+version = "0.1.0"
+
+[deps]
+ForwardDiff = "f6369f11-7733-5829-9624-2563aa707210"
+OrdinaryDiffEq = "1dea7af3-3e70-54e6-95c3-0bf5283fa5ed"
