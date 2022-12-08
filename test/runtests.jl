@@ -3,8 +3,6 @@ using Test
 
 @testset verbose = true showtiming = true "Flows" begin
     for name in (
-        "exceptions",
-        "description", 
         "hamiltonian", 
         "vector_field", 
         "hamiltonian_vf", 
