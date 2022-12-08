@@ -6,8 +6,7 @@ using OrdinaryDiffEq: ODEProblem, solve, Tsit5, OrdinaryDiffEq
 import Base: isempty
 
 #
-include("common/description.jl")
-include("common/exceptions.jl")
+using Descriptions
 
 #
 isempty(p::OrdinaryDiffEq.SciMLBase.NullParameters) = true
@@ -54,7 +53,6 @@ include("flow_vf.jl")
 #include("flows/flow_pseudo_ham.jl")
 #include("flows/flow_si_mayer.jl")
 
-export FlowsException, AmbiguousDescription
 export isnonautonomous
 export VectorField
 export Hamiltonian
