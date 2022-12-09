@@ -6,7 +6,8 @@ using OrdinaryDiffEq: ODEProblem, solve, Tsit5, OrdinaryDiffEq
 import Base: isempty
 
 #
-using Descriptions
+# using Descriptions
+include("Descriptions-src/Descriptions.jl"); using .Descriptions
 
 #
 isempty(p::OrdinaryDiffEq.SciMLBase.NullParameters) = true
