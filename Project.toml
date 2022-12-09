@@ -1,6 +1,6 @@
 name = "Flows"
 uuid = "5fb78580-10a0-4606-82bc-07a60f425ab3"
-authors = ["Olivier Cots <olivier.cots@enseeiht.fr>"]
+authors = ["Olivier Cots <olivier.cots@toulouse-inp.fr>"]
 version = "0.1.0"
 
 [deps]
