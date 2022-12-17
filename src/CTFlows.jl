@@ -1,4 +1,4 @@
-module Flows
+module CTFlows
 
 # Packages needed: 
 using ForwardDiff: jacobian, gradient, ForwardDiff

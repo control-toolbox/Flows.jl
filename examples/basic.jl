@@ -1,4 +1,4 @@
-using Flows
+using CTFlows
 
 t0 = 0.0
 tf = 1.0
