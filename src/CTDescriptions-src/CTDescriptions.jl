@@ -1,4 +1,4 @@
-module Descriptions
+module CTDescriptions
 
 # -------------------------------------------------------------------------------------------------- 
 # A desription is a tuple of symbols
@@ -16,4 +16,4 @@ export makeDescription
 export add
 export getFullDescription
 
-end # module Descriptions
+end # module CTDescriptions
