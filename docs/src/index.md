@@ -1,4 +1,4 @@
-# Flows.jl 
+# CTFlows.jl 
 
 ## Overview
 This package is ...

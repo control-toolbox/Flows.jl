@@ -1,5 +1,5 @@
 ```@meta
-CurrentModule = Flows
+CurrentModule = CTFlows
 ```
 
 ```@contents
@@ -10,6 +10,6 @@ Pages = ["api.md"]
 This page is a dump of all the docstrings found in the code. 
 
 ```@autodocs
-Modules = [Flows]
+Modules = [CTFlows]
 Order = [:module, :type, :function, :macro]
 ```

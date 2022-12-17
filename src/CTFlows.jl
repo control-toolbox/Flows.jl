@@ -1,4 +1,4 @@
-module Flows
+module CTFlows
 
 # Packages needed: 
 using ForwardDiff: jacobian, gradient, ForwardDiff
@@ -7,7 +7,7 @@ import Base: isempty
 
 #
 # using Descriptions
-include("Descriptions-src/Descriptions.jl"); using .Descriptions
+include("CTDescriptions-src/CTDescriptions.jl"); using .CTDescriptions
 
 #
 isempty(p::OrdinaryDiffEq.SciMLBase.NullParameters) = true

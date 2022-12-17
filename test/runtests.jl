@@ -1,7 +1,7 @@
-using Flows
+using CTFlows
 using Test
 
-@testset verbose = true showtiming = true "Flows" begin
+@testset verbose = true showtiming = true "CTFlows" begin
     for name in (
         "hamiltonian", 
         "vector_field", 
