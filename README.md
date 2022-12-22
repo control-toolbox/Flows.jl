@@ -1,4 +1,4 @@
-# Flows.jl
+# CTFlows.jl
 
 [gh-ci-img]: https://github.com/control-toolbox/CTFlows.jl/actions/workflows/CI.yml/badge.svg?branch=main
 [gh-ci-url]: https://github.com/control-toolbox/CTFlows.jl/actions/workflows/CI.yml?query=branch%3Amain
