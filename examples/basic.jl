@@ -1,4 +1,4 @@
-using CTFlows
+using HamiltonianFlows
 
 t0 = 0.0
 tf = 1.0

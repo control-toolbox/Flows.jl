@@ -1,4 +1,4 @@
-# CTFlows.jl 
+# HamiltonianFlows.jl 
 
 ## Overview
 This package is ...
