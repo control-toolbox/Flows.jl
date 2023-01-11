@@ -3,14 +3,14 @@ module CTFlows
 # Packages needed: 
 using ForwardDiff: jacobian, gradient, ForwardDiff
 using OrdinaryDiffEq: ODEProblem, solve, Tsit5, OrdinaryDiffEq
-import Base: isempty
+import Base: isempty, Base
 
 #
 # using Descriptions
 include("CTDescriptions-src/CTDescriptions.jl"); using .CTDescriptions
 
 #
-isempty(p::OrdinaryDiffEq.SciMLBase.NullParameters) = true
+Base.isempty(p::OrdinaryDiffEq.SciMLBase.NullParameters) = true
 
 # --------------------------------------------------------------------------------------------
 # Default options for flows
