@@ -4,6 +4,7 @@ module HamiltonianFlows
 using ForwardDiff: jacobian, gradient, ForwardDiff
 using OrdinaryDiffEq: ODEProblem, solve, Tsit5, OrdinaryDiffEq
 import Base: isempty, Base
+#using StaticArrays
 
 #
 # using Descriptions

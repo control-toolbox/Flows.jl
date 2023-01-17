@@ -1,0 +1,19 @@
+using HamiltonianFlows
+using BenchmarkTools
+using StaticArrays
+
+t0 = 0.0
+tf = 1.0
+x0 = [-1.0; 0.0]
+p0 = [12.0; 6.0]
+
+u(x, p) = p[2]
+H(x, p) = p[1] * x[2] + p[2] * u(x, p) - 0.5 * u(x, p)^2
+
+z = flow(Hamiltonian(H))
+
+# todo: calcul de speedup avec vs sans StaticArrays
+@benchmark xf, pf = z(t0, x0, p0, tf)
+
+a = @SVector [1.0; 2.0]
+println(typeof(a))
