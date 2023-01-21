@@ -26,8 +26,8 @@ function flow(vf::VectorField, description...;
     # kwargs has priority wrt kwargs_flow
     function f(tspan::Tuple{Time,Time}, x0::State, λ...; kwargs...)
         args = isempty(λ) ? (rhs!, x0, tspan) : (rhs!, x0, tspan, λ)
-        ode = OrdinaryDiffEq.ODEProblem(args...)
-        sol = OrdinaryDiffEq.solve(ode, alg=alg, abstol=abstol, reltol=reltol, saveat=saveat; kwargs_Flow..., kwargs...)
+        ode = DifferentialEquations.ODEProblem(args...)
+        sol = DifferentialEquations.solve(ode, alg=alg, abstol=abstol, reltol=reltol, saveat=saveat; kwargs_Flow..., kwargs...)
         return sol
     end
 

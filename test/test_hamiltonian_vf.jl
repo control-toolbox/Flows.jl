@@ -4,6 +4,8 @@ tf = 1.0
 x0 = [-1.0; 0.0]
 p0 = [12.0; 6.0]
 
+control(x, p) = p[2]
+
 #
 Hv(x, p) = [x[2], control(x, p), 0.0, -p[1]]
 z = flow(HamiltonianVectorField(Hv))
