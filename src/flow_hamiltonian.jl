@@ -16,7 +16,7 @@ end
 
 # Flow from a Hamiltonian
 function flow(h::Hamiltonian, description...;
-                use_static_arrays=__use_sa(),
+                use_static_arrays=__use_sa_hamiltonian(),
                 alg=__alg(), abstol=__abstol(), reltol=__reltol(), saveat=__saveat(), kwargs_Flow...)
 
     h_(t, x, p, λ...) = isnonautonomous(makeDescription(description...)) ? h(t, x, p, λ...) : h(x, p, λ...)
@@ -38,14 +38,12 @@ function flow(h::Hamiltonian, description...;
     end
 
     function f(tspan::Tuple{Time,Time}, x0::State, p0::Adjoint, λ...; kwargs...)
-        if use_static_arrays
-            #println("use SA")
-            z0 = SA[x0...; p0...]
-        else
-            #println("no use SA")
+        if isstatic(x0) && isstatic(p0) # si les deux sont "static"
             z0 = [x0; p0]
+        else
+            z0 = use_static_arrays ? SA[x0...; p0...] : [x0; p0] # rend static si use static
         end
-        if !isstatic(z0) && !use_static_arrays
+        if !isstatic(z0) #&& !use_static_arrays
             #println("no init SA, no use of SA")
             args = isempty(λ) ? (rhs!, z0, tspan) : (rhs!, z0, tspan, λ)
         else
