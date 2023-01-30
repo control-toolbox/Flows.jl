@@ -27,8 +27,8 @@ function flow(hv::HamiltonianVectorField, description...;
     function f(tspan::Tuple{Time,Time}, x0::State, p0::Adjoint, λ...; kwargs...)
         z0 = [x0; p0]
         args = isempty(λ) ? (rhs!, z0, tspan) : (rhs!, z0, tspan, λ)
-        ode = OrdinaryDiffEq.ODEProblem(args...)
-        sol = OrdinaryDiffEq.solve(ode, alg=alg, abstol=abstol, reltol=reltol, saveat=saveat; kwargs_Flow..., kwargs...)
+        ode = DifferentialEquations.ODEProblem(args...)
+        sol = DifferentialEquations.solve(ode, alg=alg, abstol=abstol, reltol=reltol, saveat=saveat; kwargs_Flow..., kwargs...)
         return sol
     end
 

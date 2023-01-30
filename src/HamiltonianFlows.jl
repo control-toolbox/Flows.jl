@@ -2,16 +2,16 @@ module HamiltonianFlows
 
 # Packages needed: 
 using ForwardDiff: jacobian, gradient, ForwardDiff
-using OrdinaryDiffEq: ODEProblem, solve, Tsit5, OrdinaryDiffEq
+using DifferentialEquations: ODEProblem, solve, Tsit5, DifferentialEquations
 import Base: isempty, Base
-#using StaticArrays
+using StaticArrays
 
 #
 # using Descriptions
 include("ControlToolboxTools-src/ControlToolboxTools.jl"); using .ControlToolboxTools
 
 #
-Base.isempty(p::OrdinaryDiffEq.SciMLBase.NullParameters) = true
+Base.isempty(p::DifferentialEquations.SciMLBase.NullParameters) = true
 
 # --------------------------------------------------------------------------------------------
 # Default options for flows
@@ -19,7 +19,8 @@ Base.isempty(p::OrdinaryDiffEq.SciMLBase.NullParameters) = true
 __abstol() = 1e-10
 __reltol() = 1e-10
 __saveat() = []
-__alg() = OrdinaryDiffEq.Tsit5()
+__alg() = DifferentialEquations.Tsit5()
+__use_sa() = true
 
 # -------------------------------------------------------------------------------------------------- 
 # desription 
@@ -30,16 +31,21 @@ isnonautonomous(desc::Description) = :nonautonomous ∈ desc
 # --------------------------------------------------------------------------------------------------
 # Aliases for types
 #
+const MyNumber = Real
+const MyVector = Union{SVector{N, <:MyNumber} where N, Vector{<:MyNumber}}
+
 const Time = Number
 
-const State = Vector{<:Number} # Vector{de sous-type de Number}
-const Adjoint = Vector{<:Number}
-const CoTangent = Vector{<:Number}
-const Control = Vector{<:Number}
+const State = MyVector # Vector{de sous-type de Number}
+const Adjoint = MyVector
+const CoTangent = MyVector
+const Control = MyVector
 
-const DState = Vector{<:Number}
-const DAdjoint = Vector{<:Number}
-const DCoTangent = Vector{<:Number}
+const DState = MyVector
+const DAdjoint = MyVector
+const DCoTangent = MyVector
+
+isstatic(v::MyVector) = v isa SVector{N, <:MyNumber} where N
 
 # --------------------------------------------------------------------------------------------
 # all flows
