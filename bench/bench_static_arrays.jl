@@ -11,7 +11,7 @@ println("no init SA, no use of SA")
 println("")
 x0 = [-1.0; 0.0]
 p0 = [12.0; 6.0]
-z = flow(H, use_static_arrays=false)
+z = Flow(H, use_static_arrays=false)
 t = @benchmark xf, pf = z(t0, x0, p0, tf, -1.0)
 display(t)
 
@@ -22,7 +22,7 @@ println("no init SA, use of SA")
 println("")
 x0 = [-1.0; 0.0]
 p0 = [12.0; 6.0]
-z = flow(H, use_static_arrays=true)
+z = Flow(H, use_static_arrays=true)
 t = @benchmark xf, pf = z(t0, x0, p0, tf, -1.0)
 display(t)
 
@@ -33,6 +33,6 @@ println("init SA, use of SA")
 println("")
 x0 = SA[-1.0; 0.0]
 p0 = SA[12.0; 6.0]
-z = flow(H)
+z = Flow(H)
 t = @benchmark xf, pf = z(t0, x0, p0, tf, -1.0)
 display(t)

@@ -15,7 +15,7 @@ function (h::Hamiltonian)(t::Time, x::State, p::Adjoint, λ...)
 end
 
 # Flow from a Hamiltonian
-function flow(h::Hamiltonian, description...;
+function Flow(h::Hamiltonian, description...;
                 use_static_arrays=__use_sa(),
                 alg=__alg(), abstol=__abstol(), reltol=__reltol(), saveat=__saveat(), kwargs_Flow...)
 

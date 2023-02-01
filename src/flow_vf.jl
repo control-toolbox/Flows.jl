@@ -14,7 +14,7 @@ function (vf::VectorField)(t::Time, x::State, λ...)
 end
 
 # Flow of a vector field
-function flow(vf::VectorField, description...; 
+function Flow(vf::VectorField, description...; 
         alg=__alg(), abstol=__abstol(), reltol=__reltol(), saveat=__saveat(), kwargs_Flow...)
 
     vf_(t, x, λ...) = isnonautonomous(makeDescription(description...)) ? vf(t, x, λ...) : vf(x, λ...)

@@ -8,6 +8,6 @@ p0 = [12.0; 6.0]
 u(x, p) = p[2]
 H(x, p) = p[1] * x[2] + p[2] * u(x, p) - 0.5 * u(x, p)^2
 
-z = flow(Hamiltonian(H))
+z = Flow(Hamiltonian(H))
 
 xf, pf = z(t0, x0, p0, tf)

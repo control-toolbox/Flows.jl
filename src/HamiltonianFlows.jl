@@ -31,10 +31,11 @@ isnonautonomous(desc::Description) = :nonautonomous ∈ desc
 # --------------------------------------------------------------------------------------------------
 # Aliases for types
 #
+# const AbstractVector{T} = AbstractArray{T,1}.
 const MyNumber = Real
-const MyVector = Union{SVector{N, <:MyNumber} where N, Vector{<:MyNumber}}
+const MyVector = AbstractVector{<:MyNumber}
 
-const Time = Number
+const Time = MyNumber
 
 const State = MyVector # Vector{de sous-type de Number}
 const Adjoint = MyVector
@@ -45,7 +46,8 @@ const DState = MyVector
 const DAdjoint = MyVector
 const DCoTangent = MyVector
 
-isstatic(v::MyVector) = v isa SVector{N, <:MyNumber} where N
+# const StaticVector{N, T} = StaticArray{Tuple{N}, T, 1}
+isstatic(v::MyVector) = v isa StaticVector{E, <:MyNumber} where {E}
 
 # --------------------------------------------------------------------------------------------
 # all flows
@@ -65,6 +67,6 @@ export isnonautonomous
 export VectorField
 export Hamiltonian
 export HamiltonianVectorField
-export flow
+export Flow
 
 end
