@@ -4,12 +4,12 @@
 
 # Flow from a function
 """
-	flow(f::Function, description...; kwargs_Flow...)
+	Flow(f::Function, description...; kwargs_Flow...)
 
 TBW
 """
-function flow(f::Function, description...; 
+function Flow(f::Function, description...; 
                 alg=__alg(), abstol=__abstol(), reltol=__reltol(), saveat=__saveat(), kwargs_Flow...)
-    return flow(Hamiltonian(f), description...; 
+    return Flow(Hamiltonian(f), description...; 
                     alg=alg, abstol=abstol, reltol=reltol, saveat=saveat, kwargs_Flow...)
 end

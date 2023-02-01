@@ -14,7 +14,7 @@ function (hv::HamiltonianVectorField)(t::Time, x::State, p::Adjoint, λ...)
 end
 
 # Fonction permettant de calculer le flot d'un système hamiltonien
-function flow(hv::HamiltonianVectorField, description...;
+function Flow(hv::HamiltonianVectorField, description...;
         alg=__alg(), abstol=__abstol(), reltol=__reltol(), saveat=__saveat(), kwargs_Flow...)
 
     hv_(t, x, p, λ...) = isnonautonomous(makeDescription(description...)) ? hv(t, x, p, λ...) : hv(x, p, λ...)
