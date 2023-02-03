@@ -7,8 +7,7 @@ import Base: isempty, Base
 using StaticArrays
 
 #
-# using Descriptions
-include("ControlToolboxTools-src/ControlToolboxTools.jl"); using .ControlToolboxTools
+using ControlToolboxTools
 
 #
 Base.isempty(p::DifferentialEquations.SciMLBase.NullParameters) = true
