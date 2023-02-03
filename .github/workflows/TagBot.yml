@@ -38,3 +38,5 @@ jobs:
             {{ custom }}
             {% endif %}
           registry: control-toolbox/ct-registry
+          user: control-toolbox
+          email: ct@inria.fr
