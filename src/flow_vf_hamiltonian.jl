@@ -14,18 +14,9 @@ function Flow(hv::HamiltonianVectorField, description...;
         dz[:] = isempty(λ) ? hv_(t, z[1:n], z[n+1:2*n]) : hv_(t, z[1:n], z[n+1:2*n], λ...)
     end
 
-    function rhs(z::CoTangent, λ, t::Time)
-        n = size(z, 1) ÷ 2
-        return isempty(λ) ? SA[hv_(t, z[1:n], z[n+1:2*n])...] : SA[hv_(t, z[1:n], z[n+1:2*n], λ...)...]
-    end
-
     function f(tspan::Tuple{Time,Time}, x0::State, p0::Adjoint, λ...; kwargs...)
         z0 = [x0; p0]
-        if isstatic(z0)
-            args = isempty(λ) ? (rhs, z0, tspan) : (rhs, z0, tspan, λ)
-        else
-            args = isempty(λ) ? (rhs!, z0, tspan) : (rhs!, z0, tspan, λ)
-        end
+        args = isempty(λ) ? (rhs!, z0, tspan) : (rhs!, z0, tspan, λ)
         ode = DifferentialEquations.ODEProblem(args...)
         sol = DifferentialEquations.solve(ode, alg=alg, abstol=abstol, reltol=reltol, saveat=saveat; kwargs_Flow..., kwargs...)
         return sol

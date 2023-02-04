@@ -8,10 +8,6 @@ using Test
          "flow_hamiltonian", 
          "flow_vf_hamiltonian", 
          "flow_vf", 
-         "SA_function",
-         "SA_hamiltonian", 
-         "SA_vf_hamiltonian", 
-         "SA_vf", 
          )
          @testset "$name" begin
              include("test_$name.jl")
