@@ -1,17 +1,7 @@
 # --------------------------------------------------------------------------------------------
 # Hamiltonian Vector Field
 # --------------------------------------------------------------------------------------------
-struct HamiltonianVectorField
-    f::Function
-end
-
-function (hv::HamiltonianVectorField)(x::State, p::Adjoint, λ...) # https://docs.julialang.org/en/v1/manual/methods/#Function-like-objects
-    return hv.f(x, p, λ...)
-end
-
-function (hv::HamiltonianVectorField)(t::Time, x::State, p::Adjoint, λ...)
-    return hv.f(t, x, p, λ...)
-end
+@callable struct HamiltonianVectorField end
 
 # Fonction permettant de calculer le flot d'un système hamiltonien
 function Flow(hv::HamiltonianVectorField, description...;
@@ -24,9 +14,18 @@ function Flow(hv::HamiltonianVectorField, description...;
         dz[:] = isempty(λ) ? hv_(t, z[1:n], z[n+1:2*n]) : hv_(t, z[1:n], z[n+1:2*n], λ...)
     end
 
+    function rhs(z::CoTangent, λ, t::Time)
+        n = size(z, 1) ÷ 2
+        return isempty(λ) ? SA[hv_(t, z[1:n], z[n+1:2*n])...] : SA[hv_(t, z[1:n], z[n+1:2*n], λ...)...]
+    end
+
     function f(tspan::Tuple{Time,Time}, x0::State, p0::Adjoint, λ...; kwargs...)
         z0 = [x0; p0]
-        args = isempty(λ) ? (rhs!, z0, tspan) : (rhs!, z0, tspan, λ)
+        if isstatic(z0)
+            args = isempty(λ) ? (rhs, z0, tspan) : (rhs, z0, tspan, λ)
+        else
+            args = isempty(λ) ? (rhs!, z0, tspan) : (rhs!, z0, tspan, λ)
+        end
         ode = DifferentialEquations.ODEProblem(args...)
         sol = DifferentialEquations.solve(ode, alg=alg, abstol=abstol, reltol=reltol, saveat=saveat; kwargs_Flow..., kwargs...)
         return sol
