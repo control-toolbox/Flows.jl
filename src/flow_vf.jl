@@ -4,14 +4,7 @@
 struct VectorField
     f::Function
 end
-
-function (vf::VectorField)(x::State, λ...) # https://docs.julialang.org/en/v1/manual/methods/#Function-like-objects
-    return vf.f(x, λ...)
-end
-
-function (vf::VectorField)(t::Time, x::State, λ...)
-    return vf.f(t, x, λ...)
-end
+(vf::VectorField)(args...; kwargs...) = vf.f(args...; kwargs...)
 
 # Flow of a vector field
 function Flow(vf::VectorField, description...; 

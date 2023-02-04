@@ -1,18 +1,10 @@
 # --------------------------------------------------------------------------------------------
 # Hamiltonian
 # --------------------------------------------------------------------------------------------
-
 struct Hamiltonian
     f::Function
 end
-
-function (h::Hamiltonian)(x::State, p::Adjoint, λ...)
-    return h.f(x, p, λ...)
-end
-
-function (h::Hamiltonian)(t::Time, x::State, p::Adjoint, λ...)
-    return h.f(t, x, p, λ...)
-end
+(h::Hamiltonian)(args...; kwargs...) = h.f(args...; kwargs...)
 
 # Flow from a Hamiltonian
 function Flow(h::Hamiltonian, description...;

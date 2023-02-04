@@ -54,7 +54,7 @@ isstatic(v::MyVector) = v isa StaticVector{E, <:MyNumber} where {E}
 # all flows
 include("flow_hamiltonian.jl")
 include("flow_function.jl")
-include("flow_hvf.jl")
+include("flow_vf_hamiltonian.jl")
 include("flow_vf.jl")
 
 #todo: ajout du temps, de paramètres...
