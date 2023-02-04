@@ -20,6 +20,8 @@ __reltol() = 1e-10
 __saveat() = []
 __alg() = DifferentialEquations.Tsit5()
 __use_sa() = true
+__use_sa_hamiltonian() = false
+__use_sa_hv() = false
 
 # -------------------------------------------------------------------------------------------------- 
 # desription 
@@ -52,7 +54,7 @@ isstatic(v::MyVector) = v isa StaticVector{E, <:MyNumber} where {E}
 # all flows
 include("flow_hamiltonian.jl")
 include("flow_function.jl")
-include("flow_hvf.jl")
+include("flow_vf_hamiltonian.jl")
 include("flow_vf.jl")
 
 #todo: ajout du temps, de paramètres...
