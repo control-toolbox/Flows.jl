@@ -14,7 +14,7 @@ z = Flow(H)
 t = @benchmark xf, pf = z(t0, x0, p0, tf)
 ```
 
-```julia
+```
 BenchmarkTools.Trial: 10000 samples with 1 evaluation.
  Range (min … max):  153.842 μs …  19.154 ms  ┊ GC (min … max): 0.00% … 98.64%
  Time  (median):     163.334 μs               ┊ GC (median):    0.00%
@@ -34,7 +34,7 @@ z = Flow(H)
 t = @benchmark xf, pf = z(t0, x0, p0, tf)
 ```
 
-```julia
+```
 BenchmarkTools.Trial: 10000 samples with 1 evaluation.
  Range (min … max):  271.682 μs …  21.323 ms  ┊ GC (min … max): 0.00% … 97.36%
  Time  (median):     285.972 μs               ┊ GC (median):    0.00%

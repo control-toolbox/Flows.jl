@@ -13,7 +13,7 @@ z = Flow(HamiltonianVectorField(Hv))
 t = @benchmark xf, pf = z(t0, x0, p0, tf)
 ```
 
-```julia
+```
 BenchmarkTools.Trial: 10000 samples with 1 evaluation.
  Range (min … max):  40.348 μs …  19.859 ms  ┊ GC (min … max): 0.00% … 99.58%
  Time  (median):     44.382 μs               ┊ GC (median):    0.00%
@@ -33,7 +33,7 @@ z = Flow(HamiltonianVectorField(Hv))
 t = @benchmark xf, pf = z(t0, x0, p0, tf)
 ```
 
-```julia
+```
 BenchmarkTools.Trial: 10000 samples with 1 evaluation.
  Range (min … max):  235.009 μs …  19.363 ms  ┊ GC (min … max): 0.00% … 98.10%
  Time  (median):     246.396 μs               ┊ GC (median):    0.00%

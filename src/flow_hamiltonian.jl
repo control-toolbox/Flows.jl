@@ -1,10 +1,7 @@
 # --------------------------------------------------------------------------------------------
 # Hamiltonian
 # --------------------------------------------------------------------------------------------
-struct Hamiltonian
-    f::Function
-end
-(h::Hamiltonian)(args...; kwargs...) = h.f(args...; kwargs...)
+@callable struct Hamiltonian end
 
 # Flow from a Hamiltonian
 function Flow(h::Hamiltonian, description...;

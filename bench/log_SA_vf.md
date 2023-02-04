@@ -14,7 +14,7 @@ z0 = [x0; p0]
 t = @benchmark zf = z(t0, z0, tf)
 ```
 
-```julia
+```
 BenchmarkTools.Trial: 10000 samples with 1 evaluation.
  Range (min … max):  33.417 μs …  19.855 ms  ┊ GC (min … max): 0.00% … 99.52%
  Time  (median):     36.743 μs               ┊ GC (median):    0.00%
@@ -32,7 +32,7 @@ z0 = SA[x0..., p0...]
 t = @benchmark zf = z(t0, z0, tf)
 ```
 
-```julia
+```
 BenchmarkTools.Trial: 10000 samples with 1 evaluation.
  Range (min … max):  224.907 μs …  20.202 ms  ┊ GC (min … max): 0.00% … 98.13%
  Time  (median):     235.660 μs               ┊ GC (median):    0.00%
@@ -43,4 +43,4 @@ BenchmarkTools.Trial: 10000 samples with 1 evaluation.
   225 μs        Histogram: log(frequency) by time        314 μs <
 
  Memory estimate: 80.14 KiB, allocs estimate: 2093.
-```
+ ```

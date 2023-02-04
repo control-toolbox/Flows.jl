@@ -14,7 +14,7 @@ z = Flow(Hamiltonian(H))
 t = @benchmark xf, pf = z(t0, x0, p0, tf)
 ```
 
-```julia
+```
 BenchmarkTools.Trial: 10000 samples with 1 evaluation.
  Range (min … max):  158.157 μs …  20.040 ms  ┊ GC (min … max): 0.00% … 98.86%
  Time  (median):     167.363 μs               ┊ GC (median):    0.00%
@@ -34,7 +34,7 @@ z = Flow(Hamiltonian(H))
 t = @benchmark xf, pf = z(t0, x0, p0, tf)
 ```
 
-```julia
+```
 BenchmarkTools.Trial: 10000 samples with 1 evaluation.
  Range (min … max):  269.780 μs …  19.965 ms  ┊ GC (min … max): 0.00% … 97.12%
  Time  (median):     285.647 μs               ┊ GC (median):    0.00%

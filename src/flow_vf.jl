@@ -1,10 +1,7 @@
 # --------------------------------------------------------------------------------------------
 # Vector Field
 # --------------------------------------------------------------------------------------------
-struct VectorField
-    f::Function
-end
-(vf::VectorField)(args...; kwargs...) = vf.f(args...; kwargs...)
+@callable struct VectorField end
 
 # Flow of a vector field
 function Flow(vf::VectorField, description...; 

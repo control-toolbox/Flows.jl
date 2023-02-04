@@ -1,10 +1,7 @@
 # --------------------------------------------------------------------------------------------
 # Hamiltonian Vector Field
 # --------------------------------------------------------------------------------------------
-struct HamiltonianVectorField
-    f::Function
-end
-(hv::HamiltonianVectorField)(args...; kwargs...) = hv.f(args...; kwargs...)
+@callable struct HamiltonianVectorField end
 
 # Fonction permettant de calculer le flot d'un système hamiltonien
 function Flow(hv::HamiltonianVectorField, description...;
