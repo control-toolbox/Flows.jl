@@ -36,10 +36,11 @@ function Flow(h::Hamiltonian, description...;
     end
 
     function f(tspan::Tuple{Time,Time}, x0::State, p0::Adjoint, λ...; kwargs...)
-        if !isstatic(z0)
-            args = isempty(λ) ? (rhs!, z0, tspan) : (rhs!, z0, tspan, λ)
-        else
+        z0 = [x0; p0]
+        if isstatic(z0)
             args = isempty(λ) ? (rhs, z0, tspan) : (rhs, z0, tspan, λ)
+        else
+            args = isempty(λ) ? (rhs!, z0, tspan) : (rhs!, z0, tspan, λ)
         end
         ode = DifferentialEquations.ODEProblem(args...)
         sol = DifferentialEquations.solve(ode, alg=alg, abstol=abstol, reltol=reltol, saveat=saveat;

@@ -23,9 +23,18 @@ function Flow(vf::VectorField, description...;
         dx[:] = isempty(λ) ? vf_(t, x) : vf_(t, x, λ...)
     end
 
+    function rhs(x::State, λ, t::Time)
+        v = isempty(λ) ? vf_(t, x) : vf_(t, x, λ...)
+        return SA[v...]
+    end
+
     # kwargs has priority wrt kwargs_flow
     function f(tspan::Tuple{Time,Time}, x0::State, λ...; kwargs...)
-        args = isempty(λ) ? (rhs!, x0, tspan) : (rhs!, x0, tspan, λ)
+        if isstatic(x0)
+            args = isempty(λ) ? (rhs, x0, tspan) : (rhs, x0, tspan, λ)
+        else
+            args = isempty(λ) ? (rhs!, x0, tspan) : (rhs!, x0, tspan, λ)
+        end
         ode = DifferentialEquations.ODEProblem(args...)
         sol = DifferentialEquations.solve(ode, alg=alg, abstol=abstol, reltol=reltol, saveat=saveat; kwargs_Flow..., kwargs...)
         return sol

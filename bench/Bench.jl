@@ -1,8 +1,7 @@
 module Bench
 
-# to use it
-# include("bench/Bench.jl")
-# using .Bench
+# to use it: 
+# include("bench/Bench.jl"); using .Bench
 # bench()
 
 #

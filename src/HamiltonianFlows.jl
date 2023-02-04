@@ -20,6 +20,8 @@ __reltol() = 1e-10
 __saveat() = []
 __alg() = DifferentialEquations.Tsit5()
 __use_sa() = true
+__use_sa_hamiltonian() = false
+__use_sa_hv() = false
 
 # -------------------------------------------------------------------------------------------------- 
 # desription 

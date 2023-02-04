@@ -5,7 +5,10 @@ using Test
 
 #@testset verbose = true showtiming = true "HamiltonianFlows bench" begin
     for name in (
-        "static_arrays",
+        "SA_function",
+        "SA_hamiltonian",
+        "SA_vf_hamiltonian",
+        "SA_vf",
         )
         #@testset "$name" 
         begin
