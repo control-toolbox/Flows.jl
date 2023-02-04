@@ -17,21 +17,21 @@ function Flow(h::Hamiltonian, description...;
         dz[n+1:2n] = -dh[1:n]
     end
 
-    function f(tspan::Tuple{Time,Time}, x0::State, p0::Adjoint, λ...; kwargs...)
+    function f(tspan::Tuple{Time,Time}, x0::State, p0::Adjoint, λ...; DiffEqRHS, kwargs...)
         z0 = [x0; p0]
-        args = isempty(λ) ? (rhs!, z0, tspan) : (rhs!, z0, tspan, λ)
+        args = isempty(λ) ? (DiffEqRHS, z0, tspan) : (DiffEqRHS, z0, tspan, λ)
         ode = DifferentialEquations.ODEProblem(args...)
         sol = DifferentialEquations.solve(ode, alg=alg, abstol=abstol, reltol=reltol, saveat=saveat;
                 kwargs_Flow..., kwargs...)
         return sol
     end
 
-    function f(t0::Time, x0::State, p0::Adjoint, tf::Time, λ...; kwargs...)
-        sol = f((t0, tf), x0, p0, λ...; kwargs...)
+    function f(t0::Time, x0::State, p0::Adjoint, tf::Time, λ...; DiffEqRHS, kwargs...)
+        sol = f((t0, tf), x0, p0, λ...; DiffEqRHS=DiffEqRHS, kwargs...)
         n = size(x0, 1)
         return sol[1:n, end], sol[n+1:2*n, end]
     end
 
-    return f
+    return ControlFlow{Hamiltonian}(f, rhs!)
 
 end;

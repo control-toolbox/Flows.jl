@@ -14,19 +14,19 @@ function Flow(vf::VectorField, description...;
     end
 
     # kwargs has priority wrt kwargs_flow
-    function f(tspan::Tuple{Time,Time}, x0::State, λ...; kwargs...)
-        args = isempty(λ) ? (rhs!, x0, tspan) : (rhs!, x0, tspan, λ)
+    function f(tspan::Tuple{Time,Time}, x0::State, λ...; DiffEqRHS, kwargs...)
+        args = isempty(λ) ? (DiffEqRHS, x0, tspan) : (DiffEqRHS, x0, tspan, λ)
         ode = DifferentialEquations.ODEProblem(args...)
         sol = DifferentialEquations.solve(ode, alg=alg, abstol=abstol, reltol=reltol, saveat=saveat; kwargs_Flow..., kwargs...)
         return sol
     end
 
-    function f(t0::Time, x0::State, t::Time, λ...; kwargs...)
-        sol = f((t0, t), x0, λ...; kwargs...)
+    function f(t0::Time, x0::State, t::Time, λ...; DiffEqRHS, kwargs...)
+        sol = f((t0, t), x0, λ...; DiffEqRHS=DiffEqRHS, kwargs...)
         n = size(x0, 1)
         return sol[1:n, end]
     end
 
-    return f
+    return ControlFlow{VectorField}(f, rhs!)
 
-end;
+end

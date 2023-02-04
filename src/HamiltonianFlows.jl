@@ -50,6 +50,13 @@ const DCoTangent = MyVector
 # const StaticVector{N, T} = StaticArray{Tuple{N}, T, 1}
 isstatic(v::MyVector) = v isa StaticVector{E, <:MyNumber} where {E}
 
+#
+struct ControlFlow{T}
+    f::Function     # f(args..., rhs)
+    rhs!::Function   # DifferentialEquations rhs
+end
+(F::ControlFlow)(args...; kwargs...) = F.f(args...; DiffEqRHS=F.rhs!, kwargs...)
+
 # --------------------------------------------------------------------------------------------
 # all flows
 include("flow_hamiltonian.jl")
