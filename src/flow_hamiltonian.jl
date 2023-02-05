@@ -17,32 +17,9 @@ function Flow(h::Hamiltonian, description...;
         dz[n+1:2n] = -dh[1:n]
     end
 
-    function rhs(z::CoTangent, λ, t::Time)
-        n = size(z, 1) ÷ 2
-        foo = isempty(λ) ? (z -> h_(t, z[1:n], z[n+1:2*n])) : (z -> h_(t, z[1:n], z[n+1:2*n], λ...))
-        dh = ForwardDiff.gradient(foo, z)
-        return SA[dh[n+1:2n]...; -dh[1:n]...]
-    end
+    f = __Hamiltonian_Flow(alg, abstol, reltol, saveat; kwargs_Flow...)
 
-    function f(tspan::Tuple{Time,Time}, x0::State, p0::Adjoint, λ...; kwargs...)
-        z0 = [x0; p0]
-        if isstatic(z0)
-            args = isempty(λ) ? (rhs, z0, tspan) : (rhs, z0, tspan, λ)
-        else
-            args = isempty(λ) ? (rhs!, z0, tspan) : (rhs!, z0, tspan, λ)
-        end
-        ode = DifferentialEquations.ODEProblem(args...)
-        sol = DifferentialEquations.solve(ode, alg=alg, abstol=abstol, reltol=reltol, saveat=saveat;
-                kwargs_Flow..., kwargs...)
-        return sol
-    end
+    return ControlFlow{Hamiltonian, DCoTangent, CoTangent, Time}(f, rhs!)
 
-    function f(t0::Time, x0::State, p0::Adjoint, tf::Time, λ...; kwargs...)
-        sol = f((t0, tf), x0, p0, λ...; kwargs...)
-        n = size(x0, 1)
-        return sol[1:n, end], sol[n+1:2*n, end]
-    end
+end
 
-    return f
-
-end;
