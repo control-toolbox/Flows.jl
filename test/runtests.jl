@@ -8,6 +8,7 @@ using Test
          "flow_hamiltonian", 
          "flow_vf_hamiltonian", 
          "flow_vf", 
+         "concatenation"
          )
          @testset "$name" begin
              include("test_$name.jl")
