@@ -3,7 +3,7 @@ function concatenate(F::ControlFlow{V, D, U, T}, g::Tuple{MyNumber, ControlFlow{
     #
     t_switch, G = g
     function rhs!(du::D, u::U, p, t::T)
-        t ≤ t_switch ? F.rhs!(du, u, p, t) : G.rhs!(du, u, p, t)
+        t < t_switch ? F.rhs!(du, u, p, t) : G.rhs!(du, u, p, t)
     end
     #
     tstops = F.tstops
