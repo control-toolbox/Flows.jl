@@ -15,7 +15,7 @@ xf, pf = z(t0, x0, p0, tf)
 
 #
 H(t, x, p, l) = p[1] * x[2] + p[2] * control(x, p) + 0.5 * l * control(x, p)^2
-z = Flow(H, :nonautonomous)
+z = Flow(H, :nonautonomous, abstol=1e-12)
 xf, pf = z(t0, x0, p0, tf, -1.0)
 @test xf ≈ [0.0, 0.0] atol = 1e-5
 @test pf ≈ [12.0, -6.0] atol = 1e-5

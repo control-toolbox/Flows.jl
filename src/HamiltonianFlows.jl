@@ -12,11 +12,6 @@ using ControlToolboxTools
 #
 Base.isempty(p::DifferentialEquations.SciMLBase.NullParameters) = true
 
-# -------------------------------------------------------------------------------------------------- 
-# desription 
-# default is autonomous
-isnonautonomous(desc::Description) = :nonautonomous ∈ desc
-
 # --------------------------------------------------------------------------------------------------
 # Aliases for types
 #
@@ -40,12 +35,12 @@ const DCoTangent = MyVector
 isstatic(v::MyVector) = v isa StaticVector{E, <:MyNumber} where {E}
 
 #
-struct ControlFlow{V, D, U, T}
+struct ControlFlow{D, U, T}
     f::Function     # f(args..., rhs)
     rhs!::Function   # DifferentialEquations rhs
     tstops::Times
-    ControlFlow{V, D, U, T}(f, rhs!) where {V, D, U, T} = new{V, D, U, T}(f, rhs!, Vector{Time}())
-    ControlFlow{V, D, U, T}(f, rhs!, tstops) where {V, D, U, T} = new{V, D, U, T}(f, rhs!, tstops)
+    ControlFlow{D, U, T}(f, rhs!) where {D, U, T} = new{D, U, T}(f, rhs!, Vector{Time}())
+    ControlFlow{D, U, T}(f, rhs!, tstops) where {D, U, T} = new{D, U, T}(f, rhs!, tstops)
 end
 (F::ControlFlow)(args...; kwargs...) = F.f(args...; _t_stops_interne=F.tstops, DiffEqRHS=F.rhs!, kwargs...)
 
