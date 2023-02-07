@@ -14,6 +14,6 @@ zf = z(t0, [x0; p0], tf)
 
 #
 V(t, z, l) = V(z)
-z = Flow(VectorField(V), :nonautonomous)
+z = Flow(VectorField{:nonautonomous}(V), abstol=1e-12)
 zf = z(t0, [x0; p0], tf, 0.0)
 @test zf ≈ [0.0, 0.0, 12.0, -6.0] atol = 1e-5

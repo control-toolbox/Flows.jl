@@ -15,7 +15,7 @@ xf, pf = z(t0, x0, p0, tf)
 
 #
 Hv(t, x, p, l) = [x[2], control(x, p), 0.0, -p[1]]
-z = Flow(HamiltonianVectorField(Hv), :nonautonomous)
+z = Flow(HamiltonianVectorField{:nonautonomous}(Hv), abstol=1e-12)
 xf, pf = z(t0, x0, p0, tf, 0.0)
 @test xf ≈ [0.0, 0.0] atol = 1e-5
 @test pf ≈ [12.0, -6.0] atol = 1e-5

@@ -1,5 +1,4 @@
 using HamiltonianFlows
-using StaticArrays
 using Test
 
  @testset verbose = true showtiming = true "HamiltonianFlows" begin

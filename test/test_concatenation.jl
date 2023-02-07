@@ -11,14 +11,6 @@ p0 = [c, d]
 
 n = length(x0)
 
-function vec2vec(x::Vector{<:Vector{<:Real}})
-    y = x[1]
-    for i in range(2, length(x))
-        y = vcat(y, x[i])
-    end
-    return y
-end
-
 #
 control(_, p) = p[2]
 H1(x, p) = p[1] * x[2] + p[2] * control(x, p) - 0.5 * control(x, p)^2
@@ -90,7 +82,7 @@ end
     #
     f1 = Flow(Hamiltonian(H1))
     f2 = Flow(Hamiltonian(H2))
-    f3 = Flow(Hamiltonian(H3), :nonautonomous)
+    f3 = Flow(Hamiltonian{:nonautonomous}(H3))
     
     # one flow is used because t1 > tf
     f = f1 * (2.0*tf, f2)
@@ -134,7 +126,7 @@ end
     #
     f1 = Flow(HamiltonianVectorField(Hv1))
     f2 = Flow(HamiltonianVectorField(Hv2))
-    f3 = Flow(HamiltonianVectorField(Hv3), :nonautonomous)
+    f3 = Flow(HamiltonianVectorField{:nonautonomous}(Hv3))
     
     # one flow is used because t1 > tf
     f = f1 * (2.0*tf, f2)
@@ -178,7 +170,7 @@ end
     #
     f1 = Flow(VectorField(V1))
     f2 = Flow(VectorField(V2))
-    f3 = Flow(VectorField(V3), :nonautonomous)
+    f3 = Flow(VectorField{:nonautonomous}(V3))
 
     # one flow is used because t1 > tf
     f = f1 * (2.0*tf, f2)
