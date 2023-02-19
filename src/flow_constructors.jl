@@ -5,9 +5,9 @@ function __Hamiltonian_Flow(alg, abstol, reltol, saveat; kwargs_Flow...)
     function f(tspan::Tuple{Time,Time}, x0::State, p0::Adjoint, λ...; _t_stops_interne, DiffEqRHS, tstops=__tstops(), kwargs...)
         z0 = [x0; p0]
         args = isempty(λ) ? (DiffEqRHS, z0, tspan) : (DiffEqRHS, z0, tspan, λ)
-        ode = DifferentialEquations.ODEProblem(args...)
+        ode = OrdinaryDiffEq.ODEProblem(args...)
         append!(_t_stops_interne, tstops); t_stops_all = unique(sort(_t_stops_interne))
-        sol = DifferentialEquations.solve(ode, alg=alg, abstol=abstol, reltol=reltol, saveat=saveat, tstops=t_stops_all; kwargs_Flow..., kwargs...)
+        sol = OrdinaryDiffEq.solve(ode, alg=alg, abstol=abstol, reltol=reltol, saveat=saveat, tstops=t_stops_all; kwargs_Flow..., kwargs...)
         return sol
     end
 
@@ -28,9 +28,9 @@ function __Classical_Flow(alg, abstol, reltol, saveat; kwargs_Flow...)
     # kwargs has priority wrt kwargs_flow
     function f(tspan::Tuple{Time,Time}, x0::State, λ...; _t_stops_interne, DiffEqRHS, tstops=__tstops(), kwargs...)
         args = isempty(λ) ? (DiffEqRHS, x0, tspan) : (DiffEqRHS, x0, tspan, λ)
-        ode = DifferentialEquations.ODEProblem(args...)
+        ode = OrdinaryDiffEq.ODEProblem(args...)
         append!(_t_stops_interne, tstops); t_stops_all = unique(sort(_t_stops_interne))
-        sol = DifferentialEquations.solve(ode, alg=alg, abstol=abstol, reltol=reltol, saveat=saveat, tstops=t_stops_all; kwargs_Flow..., kwargs...)
+        sol = OrdinaryDiffEq.solve(ode, alg=alg, abstol=abstol, reltol=reltol, saveat=saveat, tstops=t_stops_all; kwargs_Flow..., kwargs...)
         return sol
     end
 
