@@ -6,7 +6,7 @@ function Flow(h::Hamiltonian; alg=__alg(), abstol=__abstol(),
     function rhs!(dz::DCoTangent, z::CoTangent, λ, t::Time)
         n = size(z, 1) ÷ 2
         foo = isempty(λ) ? (z -> h(t, z[1:n], z[n+1:2*n])) : (z -> h(t, z[1:n], z[n+1:2*n], λ...))
-        dh = ForwardDiff.gradient(foo, z)
+        dh = ctgradient(foo, z)
         dz[1:n] = dh[n+1:2n]
         dz[n+1:2n] = -dh[1:n]
     end

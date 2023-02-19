@@ -1,9 +1,7 @@
 module HamiltonianFlows
 
 # Packages needed: 
-using ForwardDiff: jacobian, gradient, ForwardDiff
 using OrdinaryDiffEq
-using StaticArrays
 import Base: *, isempty, Base
 
 #
@@ -23,7 +21,10 @@ const DAdjoint = MyVector
 const DCoTangent = MyVector
 
 # const StaticVector{N, T} = StaticArray{Tuple{N}, T, 1}
-isstatic(v::MyVector) = v isa StaticVector{E, <:MyNumber} where {E}
+#isstatic(v::MyVector) = v isa StaticVector{E, <:MyNumber} where {E}
+
+#
+const ctgradient = CTBase.ctgradient
 
 #
 struct ControlFlow{D, U, T}
