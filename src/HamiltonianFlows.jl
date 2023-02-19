@@ -2,31 +2,22 @@ module HamiltonianFlows
 
 # Packages needed: 
 using ForwardDiff: jacobian, gradient, ForwardDiff
-using DifferentialEquations: ODEProblem, solve, Tsit5, DifferentialEquations
+using OrdinaryDiffEq
 using StaticArrays
 import Base: *, isempty, Base
 
 #
-using ControlToolboxTools
+using CTBase
 
 #
-Base.isempty(p::DifferentialEquations.SciMLBase.NullParameters) = true
+Base.isempty(p::OrdinaryDiffEq.SciMLBase.NullParameters) = true
 
 # --------------------------------------------------------------------------------------------------
 # Aliases for types
 #
 # const AbstractVector{T} = AbstractArray{T,1}.
-const MyNumber = Real
-const MyVector = AbstractVector{<:MyNumber}
-
-const Time = MyNumber
-const Times = AbstractVector{<:Time}
-
-const State = MyVector # Vector{de sous-type de Number}
-const Adjoint = MyVector
 const CoTangent = MyVector
 const Control = MyVector
-
 const DState = MyVector
 const DAdjoint = MyVector
 const DCoTangent = MyVector
@@ -37,7 +28,7 @@ isstatic(v::MyVector) = v isa StaticVector{E, <:MyNumber} where {E}
 #
 struct ControlFlow{D, U, T}
     f::Function     # f(args..., rhs)
-    rhs!::Function   # DifferentialEquations rhs
+    rhs!::Function   # OrdinaryDiffEq rhs
     tstops::Times
     ControlFlow{D, U, T}(f, rhs!) where {D, U, T} = new{D, U, T}(f, rhs!, Vector{Time}())
     ControlFlow{D, U, T}(f, rhs!, tstops) where {D, U, T} = new{D, U, T}(f, rhs!, tstops)
@@ -50,7 +41,7 @@ end
 __abstol() = 1e-10
 __reltol() = 1e-10
 __saveat() = []
-__alg() = DifferentialEquations.Tsit5()
+__alg() = Tsit5()
 __tstops() = Vector{Time}()
 
 # --------------------------------------------------------------------------------------------
