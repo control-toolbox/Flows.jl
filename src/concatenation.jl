@@ -1,5 +1,5 @@
 # concatenate two flows with a prescribed switching time
-function concatenate(F::ControlFlow{D, U, T}, g::Tuple{MyNumber, ControlFlow{D, U, T}}) where {D, U, T}
+function concatenate(F::CTFlow{D, U, T}, g::Tuple{MyNumber, CTFlow{D, U, T}}) where {D, U, T}
     #
     t_switch, G = g
     function rhs!(du::D, u::U, p, t::T)
@@ -11,7 +11,7 @@ function concatenate(F::ControlFlow{D, U, T}, g::Tuple{MyNumber, ControlFlow{D, 
     append!(tstops, t_switch)
     tstops = unique(sort(tstops))
     # on choisit le f de F, c-a-d que l'on considère les options de F
-    return ControlFlow{D, U, T}(F.f, rhs!, tstops)
+    return CTFlow{D, U, T}(F.f, rhs!, tstops)
 end
 
-*(F::ControlFlow{D, U, T}, g::Tuple{MyNumber, ControlFlow{D, U, T}}) where {D, U, T} = concatenate(F, g)
+*(F::CTFlow{D, U, T}, g::Tuple{MyNumber, CTFlow{D, U, T}}) where {D, U, T} = concatenate(F, g)

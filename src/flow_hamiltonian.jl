@@ -13,7 +13,7 @@ function Flow(h::Hamiltonian; alg=__alg(), abstol=__abstol(),
 
     f = __Hamiltonian_Flow(alg, abstol, reltol, saveat; kwargs_Flow...)
 
-    return ControlFlow{DCoTangent, CoTangent, Time}(f, rhs!)
+    return CTFlow{DCoTangent, CoTangent, Time}(f, rhs!)
 
 end
 

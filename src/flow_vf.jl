@@ -9,6 +9,6 @@ function Flow(vf::VectorField; alg=__alg(), abstol=__abstol(),
 
     f = __Classical_Flow(alg, abstol, reltol, saveat; kwargs_Flow...)
 
-    return ControlFlow{DState, State, Time}(f, rhs!)
+    return CTFlow{DState, State, Time}(f, rhs!)
 
 end

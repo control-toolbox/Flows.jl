@@ -27,14 +27,14 @@ const DCoTangent = MyVector
 const ctgradient = CTBase.ctgradient
 
 #
-struct ControlFlow{D, U, T}
+struct CTFlow{D, U, T}
     f::Function     # f(args..., rhs)
     rhs!::Function   # OrdinaryDiffEq rhs
     tstops::Times
-    ControlFlow{D, U, T}(f, rhs!) where {D, U, T} = new{D, U, T}(f, rhs!, Vector{Time}())
-    ControlFlow{D, U, T}(f, rhs!, tstops) where {D, U, T} = new{D, U, T}(f, rhs!, tstops)
+    CTFlow{D, U, T}(f, rhs!) where {D, U, T} = new{D, U, T}(f, rhs!, Vector{Time}())
+    CTFlow{D, U, T}(f, rhs!, tstops) where {D, U, T} = new{D, U, T}(f, rhs!, tstops)
 end
-(F::ControlFlow)(args...; kwargs...) = F.f(args...; _t_stops_interne=F.tstops, DiffEqRHS=F.rhs!, kwargs...)
+(F::CTFlow)(args...; kwargs...) = F.f(args...; _t_stops_interne=F.tstops, DiffEqRHS=F.rhs!, kwargs...)
 
 # --------------------------------------------------------------------------------------------
 # Default options for flows

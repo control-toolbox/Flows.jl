@@ -17,6 +17,15 @@ function __Hamiltonian_Flow(alg, abstol, reltol, saveat; kwargs_Flow...)
         return sol[1:n, end], sol[n+1:2*n, end]
     end
 
+    function f(tspan::Tuple{Time,Time}, x0::MyNumber, p0::MyNumber, λ...; _t_stops_interne, DiffEqRHS, tstops=__tstops(), kwargs...)
+        return f(tspan, [x0], [p0], λ...; _t_stops_interne=_t_stops_interne, DiffEqRHS=DiffEqRHS, tstops=tstops, kwargs...)
+    end
+
+    function f(t0::Time, x0::MyNumber, p0::MyNumber, tf::Time, λ...; _t_stops_interne, DiffEqRHS, tstops=__tstops(), kwargs...)
+        xf, pf = f(t0, [x0], [p0], tf, λ...; _t_stops_interne=_t_stops_interne, DiffEqRHS=DiffEqRHS, tstops=tstops, kwargs...)
+        return xf[1], pf[1]
+    end
+
     return f
 
 end
@@ -38,6 +47,15 @@ function __Classical_Flow(alg, abstol, reltol, saveat; kwargs_Flow...)
         sol = f((t0, t), x0, λ...; _t_stops_interne=_t_stops_interne, DiffEqRHS=DiffEqRHS, tstops=tstops, kwargs...)
         n = size(x0, 1)
         return sol[1:n, end]
+    end
+
+    function f(tspan::Tuple{Time,Time}, x0::MyNumber, λ...; _t_stops_interne, DiffEqRHS, tstops=__tstops(), kwargs...)
+        return f(tspan, [x0], λ...; _t_stops_interne=_t_stops_interne, DiffEqRHS=DiffEqRHS, tstops=tstops, kwargs...)
+    end
+
+    function f(t0::Time, x0::MyNumber, tf::Time, λ...; _t_stops_interne, DiffEqRHS, tstops=__tstops(), kwargs...)
+        xf = f(t0, [x0], tf, λ...; _t_stops_interne=_t_stops_interne, DiffEqRHS=DiffEqRHS, tstops=tstops, kwargs...)
+        return xf[1]
     end
 
     return f
